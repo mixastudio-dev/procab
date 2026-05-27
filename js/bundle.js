@@ -220,12 +220,30 @@ window.addEventListener('resize', function() {
   setTimeout(checkAllBlocks, 100);
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-  const statItems = document.querySelectorAll('.block-stats-js .stat-item .stat-title');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const block = entry.target;
+      const delay = parseInt(block.getAttribute('data-delay') || 0);
+      const animationType = block.getAttribute('data-animation') || 'fade-up';
 
+      setTimeout(() => {
+        block.classList.add('animated', animationType);
+        block.setAttribute('data-animated', 'true');
+      }, delay);
+
+      observer.unobserve(block);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '50px' });
+
+document.querySelectorAll('.animate-block:not([data-animated])').forEach(block => {
+  observer.observe(block);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
   function animateNumber(element, target, suffix, duration) {
     let start = null;
-    let startValue = 0;
 
     function step(timestamp) {
       if (!start) start = timestamp;
@@ -244,43 +262,73 @@ document.addEventListener('DOMContentLoaded', function () {
     requestAnimationFrame(step);
   }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const element = entry.target;
-        const text = element.textContent.trim();
-        const match = text.match(/^([\d.]+)(.*)$/);
+  const statBlocks = document.querySelectorAll('.block-stats-js');
 
-        if (match && !element.hasAttribute('data-animated')) {
-          const target = parseFloat(match[1]);
-          const suffix = match[2];
-          const duration = parseInt(element.dataset.duration) || 2000;
+  statBlocks.forEach(block => {
+    const statItems = block.querySelectorAll('.stat-item .stat-title');
 
-          animateNumber(element, target, suffix, duration);
-          element.setAttribute('data-animated', 'true');
-          observer.unobserve(element);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          let text = element.textContent.trim();
+
+          const prefixMatch = text.match(/^([<>=\s]+)?([\d.]+)(.*)$/);
+
+          if (prefixMatch && !element.hasAttribute('data-animated')) {
+            const prefix = prefixMatch[1] || '';
+            const target = parseFloat(prefixMatch[2]);
+            let suffix = prefixMatch[3] || '';
+
+            const fullSuffix = prefix + suffix;
+
+            const duration = parseInt(element.dataset.duration) || 2000;
+
+            element.textContent = prefix + '0' + suffix;
+
+            animateNumberWithPrefix(element, target, prefix, suffix, duration);
+            element.setAttribute('data-animated', 'true');
+            observer.unobserve(element);
+          }
         }
-      }
-    });
-  }, {threshold: 0.5});
+      });
+    }, { threshold: 0.5 });
 
-  statItems.forEach(item => observer.observe(item));
+    statItems.forEach(item => observer.observe(item));
+  });
+
+  function animateNumberWithPrefix(element, target, prefix, suffix, duration) {
+    let start = null;
+
+    function step(timestamp) {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const current = Math.floor(progress * target);
+
+      element.textContent = prefix + current + suffix;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        element.textContent = prefix + target + suffix;
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
 });
 
 document.addEventListener('DOMContentLoaded', function() {
   const mapWrapper = document.querySelector('.migration-map-section .map-wrapper');
   if (!mapWrapper) return;
 
-  // Получаем все картинки внутри map-wrapper
   const images = mapWrapper.querySelectorAll('.map-image');
 
-  // Первая картинка - дефолтная, вторая - активная
   const mapImageDefault = images[0];
   const mapImageActive = images[1];
 
   if (!mapImageDefault || !mapImageActive) return;
 
-  // Устанавливаем начальное состояние
   mapImageDefault.style.opacity = '1';
   mapImageActive.style.opacity = '0';
   mapImageDefault.style.position = 'relative';
@@ -299,6 +347,14 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  const forms = document.querySelectorAll('.wpcf7 form');
+
+  forms.forEach(form => {
+    const brElements = form.querySelectorAll('br');
+    brElements.forEach(br => br.remove());
+  });
+});
 
 var swiper1 = new Swiper(".blog-slider", {
   observer: true,
