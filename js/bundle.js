@@ -438,3 +438,50 @@ var swiper4 = new Swiper(".gallery-slider-main", {
     prevEl: ".gallery-slider-main .swiper-button-prev",
   },
 });
+
+var swiper5 = new Swiper(".banner-slider", {
+  spaceBetween: 0,
+  slidesPerView: 1,
+  effect: "fade",
+  observer: true,
+  observeParents: true,
+  watchSlidesProgress: true,
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false,
+  },
+  pagination: {
+    el: ".default-banner .swiper-pagination",
+    clickable: true,
+  },
+  loop: true,
+  on: {
+    slideChangeTransitionEnd: function() {
+      handleVideoPlayback(this);
+    },
+    init: function() {
+      handleVideoPlayback(this);
+    }
+  }
+});
+
+function handleVideoPlayback(swiper) {
+  const slides = swiper.slides;
+
+  slides.forEach(slide => {
+    const videos = slide.querySelectorAll('video');
+    videos.forEach(video => {
+      video.pause();
+      video.currentTime = 0;
+    });
+  });
+
+  const activeSlide = swiper.slides[swiper.activeIndex];
+
+  if (activeSlide) {
+    const activeVideos = activeSlide.querySelectorAll('video');
+    activeVideos.forEach(video => {
+      video.play().catch(e => console.log('Video play error:', e));
+    });
+  }
+}

@@ -77,8 +77,7 @@
 
 <section class="default-banner category-banner">
   <div class="banner-back">
-    <img class="banner-back-pc" src="./img/banner-back-pc.webp" alt="">
-    <img class="banner-back-mobile" src="./img/banner-back-pc.webp" alt="">
+    <img src="./img/banner-back-pc.webp" alt="">
   </div>
   <div class="container">
     <div class="banner-content">
@@ -586,13 +585,11 @@
       const productsGrid = document.querySelector('.products-grid');
       if (!productsGrid) return;
 
-      // Получаем все карточки товаров (исключая product-head если он внутри)
       const productCards = Array.from(productsGrid.querySelectorAll('.product-card'));
       if (productCards.length === 0) return;
 
       let sortedCards = [...productCards];
 
-      // Сортировка в зависимости от выбранного типа
       switch(sortType) {
         case 'по названию (А-Я)':
           sortedCards.sort((a, b) => {
@@ -611,7 +608,6 @@
           break;
 
         case 'по умолчанию':
-          // Возвращаем исходный порядок (по data-delay или исходному индексу)
           sortedCards.sort((a, b) => {
             const delayA = parseInt(a.getAttribute('data-delay') || 0);
             const delayB = parseInt(b.getAttribute('data-delay') || 0);
@@ -620,23 +616,19 @@
           break;
 
         default:
-          return; // Если не выбран тип сортировки, выходим
+          return;
       }
 
-      // Сохраняем product-head если он есть
       const productHead = productsGrid.querySelector('.product-head');
 
-      // Очищаем сетку
       while (productsGrid.firstChild) {
         productsGrid.removeChild(productsGrid.firstChild);
       }
 
-      // Возвращаем product-head если был
       if (productHead) {
         productsGrid.appendChild(productHead);
       }
 
-      // Добавляем отсортированные карточки с плавной анимацией
       sortedCards.forEach((card, index) => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
@@ -671,7 +663,6 @@
       });
     });
 
-    // Закрытие селектов при клике вне
     document.addEventListener('click', function (e) {
       if (!e.target.closest('.custom-select')) {
         closeAllSelects();
@@ -768,9 +759,7 @@
               <strong>
                 Крупный производитель кабельной продукции
               </strong>
-              и полуфабрикатов
-              с экспортом в более чем
-              60 стран
+              и полуфабрикатов с экспортом <br> в более чем 60 стран
             </p>
           </div>
         </div>
