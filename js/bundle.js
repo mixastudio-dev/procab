@@ -442,7 +442,7 @@ var swiper4 = new Swiper(".gallery-slider-main", {
 var swiper5 = new Swiper(".banner-slider", {
   spaceBetween: 0,
   slidesPerView: 1,
-  effect: "fade",
+  speed: 2000,
   observer: true,
   observeParents: true,
   watchSlidesProgress: true,
