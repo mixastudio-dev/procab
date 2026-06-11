@@ -467,30 +467,8 @@ var swiper5 = new Swiper(".banner-slider", {
   },
   loop: true,
   on: {
-    slideChangeTransitionStart: function() {
-      const swiper = this;
-      const slides = swiper.slides;
-      const activeSlide = slides[swiper.activeIndex];
-      const prevSlide = slides[swiper.previousIndex];
-
-      if (swiper.swipeDirection === 'next' ||
-          (swiper.previousIndex < swiper.activeIndex &&
-              swiper.activeIndex - swiper.previousIndex === 1)) {
-        if (prevSlide) prevSlide.style.zIndex = '5';
-        if (activeSlide) activeSlide.style.zIndex = '10';
-      } else if (swiper.swipeDirection === 'prev' ||
-          (swiper.previousIndex > swiper.activeIndex &&
-              swiper.previousIndex - swiper.activeIndex === 1)) {
-        if (prevSlide) prevSlide.style.zIndex = '5';
-        if (activeSlide) activeSlide.style.zIndex = '10';
-      }
-    },
     slideChangeTransitionEnd: function() {
       handleVideoPlayback(this);
-      const slides = document.querySelectorAll('.banner-slider .swiper-slide');
-      slides.forEach(slide => {
-        slide.style.zIndex = '';
-      });
     },
     init: function() {
       handleVideoPlayback(this);
