@@ -485,3 +485,65 @@ function handleVideoPlayback(swiper) {
     });
   }
 }
+
+// Интерактивная карта
+document.addEventListener('DOMContentLoaded', () => {
+  const activeCountries = document.querySelectorAll('.countries .active');
+  const allArrows = document.querySelectorAll('.arrows [class*="arrow"]');
+  const allMarkers = document.querySelectorAll('.circle .marker-point');
+  const allCountryNameElements = document.querySelectorAll('[class*="country-name-"]');
+
+  function hideAllSecondaryElements() {
+    allArrows.forEach(arrow => arrow.style.display = 'none');
+    allMarkers.forEach(marker => marker.style.display = 'none');
+    allCountryNameElements.forEach(el => el.style.display = 'none');
+  }
+
+  function showElementsForCountry(countryId) {
+    const targetArrow = document.querySelector(`.arrows .arrow-${countryId}`);
+    if (targetArrow) targetArrow.style.display = 'block';
+
+    const targetMarker = document.querySelector(`.circle .marker-${countryId}`);
+    if (targetMarker) targetMarker.style.display = 'block';
+
+    const targetCountryElements = document.querySelectorAll(`[class*="country-name-${countryId}"]`);
+    targetCountryElements.forEach(el => el.style.display = 'block');
+
+    const targetCountryFilterElements = document.querySelectorAll(`[class*="country-name-filter-${countryId}"]`);
+    targetCountryFilterElements.forEach(el => el.style.display = 'block');
+  }
+
+  function handleCountryHover(countryId) {
+    hideAllSecondaryElements();
+    showElementsForCountry(countryId);
+  }
+
+  function handleCountryLeave() {
+    hideAllSecondaryElements();
+  }
+
+  activeCountries.forEach(countryGroup => {
+    const classList = countryGroup.classList;
+    let countryId = null;
+
+    for (let i = 0; i < classList.length; i++) {
+      const className = classList[i];
+      if (className.startsWith('country-')) {
+        countryId = className.substring('country-'.length);
+        break;
+      }
+    }
+
+    if (!countryId) return;
+
+    countryGroup.addEventListener('mouseenter', () => {
+      handleCountryHover(countryId);
+    });
+
+    countryGroup.addEventListener('mouseleave', () => {
+      handleCountryLeave();
+    });
+  });
+
+  hideAllSecondaryElements();
+});
