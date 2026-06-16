@@ -31,24 +31,32 @@
           <img src="./img/logo.webp" alt="">
         </div>
         <nav class="header-nav">
+          <div class="header-mobile-top">
+            <div class="logo">
+              <img src="./img/logo.webp" alt="">
+            </div>
+          </div>
           <div class="close-menu-button"></div>
-          <ul class="main-menu">
-            <li>
-              <a href="#">Каталог</a>
-            </li>
-            <li>
-              <a href="#">Производство</a>
-            </li>
-            <li>
-              <a href="#">Экспорт</a>
-            </li>
-            <li>
-              <a href="#">Качество</a>
-            </li>
-            <li>
-              <a href="#">О компании</a>
-            </li>
-          </ul>
+          <div class="header-mobile-bottom">
+            <ul class="main-menu">
+              <li>
+                <a href="#">Каталог</a>
+              </li>
+              <li>
+                <a href="#">Производство</a>
+              </li>
+              <li>
+                <a href="#">Экспорт</a>
+              </li>
+              <li>
+                <a href="#">Качество</a>
+              </li>
+              <li>
+                <a href="#">О компании</a>
+              </li>
+            </ul>
+            <a href="#" class="btn btn-red btn-mobile">Контакты</a>
+          </div>
         </nav>
       </div>
 
@@ -58,7 +66,7 @@
           <div class="line"></div>
           <div class="line"></div>
         </div>
-        <a href="#" class="btn btn-red">Контакты</a>
+        <a href="#" class="btn btn-red btn-pc">Контакты</a>
         <ul class="lang-switch">
           <li>
             RU
@@ -84,6 +92,7 @@
 <section class="main-banner">
   <div class="banner-back">
     <video muted loop autoplay src="./img/main-banner-frame.mp4"></video>
+    <img src="./img/mobile-main-banner-planet.webp" alt="">
   </div>
   <div class="container">
     <div class="banner-content animate-block">
@@ -91,7 +100,7 @@
         <h1>Международный производитель мирового уровня кабельной продукции и полуфабрикатов</h1>
       </div>
       <div class="description description-white">
-        <p>Поставляем решения для промышленных и инфраструктурных проектов с экспортом в более чем 50 стран</p>
+        <p>Поставляем решения для промышленных <br class="br-mobile"> и инфраструктурных проектов с экспортом в более чем 50 стран</p>
       </div>
       <div class="banner-buttons">
         <a href="#" class="btn btn-bordered">Отправить заявку</a>
@@ -325,8 +334,8 @@
       <h2>
         Новости компании
       </h2>
-      <div class="swiper-button swiper-button-prev"></div>
-      <div class="swiper-button swiper-button-next"></div>
+      <div class="swiper-button swiper-button-pc swiper-button-prev"></div>
+      <div class="swiper-button swiper-button-pc swiper-button-next"></div>
     </div>
     <div class="description description-white">
       <p>Следите за актуальными событиями, важными обновлениями и ключевыми достижениями нашей компании</p>
@@ -420,6 +429,13 @@
         </div>
       </div>
     </div>
+    <div class="mobile-blog-bottom">
+      <div class="swiper-buttons">
+        <div class="swiper-button swiper-button-prev"></div>
+        <div class="swiper-button swiper-button-next"></div>
+      </div>
+      <a href="#" class="btn btn-red">Все новости</a>
+    </div>
   </div>
 </section>
 
@@ -469,6 +485,9 @@
              <p>Каждая партия сопровождается необходимой технической документацией и сертификатами</p>
            </div>
          </div>
+       </div>
+       <div class="buttons-wrapper">
+         <a href="#" class="btn btn-red">Подробнее о поизводстве</a>
        </div>
      </div>
    </div>
@@ -3424,8 +3443,8 @@
       <h2>
         Нам доверяют крупные компании
       </h2>
-      <div class="swiper-button swiper-button-prev"></div>
-      <div class="swiper-button swiper-button-next"></div>
+      <div class="swiper-button swiper-button-pc swiper-button-prev"></div>
+      <div class="swiper-button swiper-button-pc swiper-button-next"></div>
     </div>
     <div class="partner-slider slider-wrapper">
       <div class="swiper-wrapper">
@@ -3613,6 +3632,12 @@
           </div>
         </div>
       </div>
+      <div class="mobile-partner-bottom">
+        <div class="swiper-buttons">
+          <div class="swiper-button swiper-button-prev"></div>
+          <div class="swiper-button swiper-button-next"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -3630,43 +3655,53 @@
     <div class="process-grid">
       <div class="process-item animate-block" data-delay="150">
         <div class="process-item-content">
-          <div class="card-title">Запрос и консультация</div>
-          <div class="card-description">
-            <p>Вы связываетесь с нами любым удобным способом — мы уточняем задачу и требования</p>
+          <div class="content-wrapper">
+            <div class="card-title">Запрос и консультация</div>
+            <div class="card-description">
+              <p>Вы связываетесь с нами любым удобным способом — мы уточняем задачу и требования</p>
+            </div>
           </div>
         </div>
       </div>
       <div class="process-item animate-block" data-delay="300">
         <div class="process-item-content">
-          <div class="card-title">Подбор решения и расчет</div>
-          <div class="card-description">
-            <p>Подбираем продукцию или полуфабрикаты под ваш проект и готовим коммерческое предложение</p>
+          <div class="content-wrapper">
+            <div class="card-title">Подбор решения и расчет</div>
+            <div class="card-description">
+              <p>Подбираем продукцию или полуфабрикаты под ваш проект и готовим коммерческое предложение</p>
+            </div>
           </div>
         </div>
       </div>
       <div class="process-item animate-block" data-delay="450">
         <div class="process-item-content">
-          <div class="card-title">Согласование и запуск производства</div>
-          <div class="card-description">
-            <p>Согласовываем условия и запускаем производство с учётом всех требований</p>
+          <div class="content-wrapper">
+            <div class="card-title">Согласование и запуск производства</div>
+            <div class="card-description">
+              <p>Согласовываем условия и запускаем производство с учётом всех требований</p>
+            </div>
           </div>
         </div>
       </div>
       <div class="process-item animate-block" data-delay="600">
         <div class="process-item-content">
-          <div class="card-title">Контроль качества <br> и отгрузка</div>
-          <div class="card-description">
-            <p>Проводим контроль качества
-              и организуем поставку продукции</p>
+          <div class="content-wrapper">
+            <div class="card-title">Контроль качества <br> и отгрузка</div>
+            <div class="card-description">
+              <p>Проводим контроль качества
+                и организуем поставку продукции</p>
+            </div>
           </div>
         </div>
       </div>
       <div class="process-item animate-block" data-delay="750">
         <div class="process-item-content">
-          <div class="card-title">Сопровождение <br>и поддержка</div>
-          <div class="card-description">
-            <p>Остаёмся на связи после поставки
-              и сопровождаем при необходимости</p>
+          <div class="content-wrapper">
+            <div class="card-title">Сопровождение <br>и поддержка</div>
+            <div class="card-description">
+              <p>Остаёмся на связи после поставки
+                и сопровождаем при необходимости</p>
+            </div>
           </div>
         </div>
       </div>
@@ -3718,7 +3753,7 @@
   <div class="container">
     <div class="title-colored title-colored-white">
       <h2>
-        Свяжитесь с нами для обсуждения ваших требований к кабелям
+        Свяжитесь с нами <br class="mobile-br"> для обсуждения ваших требований к кабелям
       </h2>
     </div>
 
@@ -3829,15 +3864,17 @@
         </div>
         <div class="grid-column">
           <a href="#" class="btn btn-bordered">Скачать каталог PDF</a>
-          <div class="footer-contact-item">
-            <div class="footer-title">Отдел экспорта</div>
-            <a href="#">+998771111111</a>
-            <a href="#">Info@procab.uz</a>
-          </div>
-          <div class="footer-contact-item">
-            <div class="footer-title">Отдел инженерии</div>
-            <a href="#">+998771111111</a>
-            <a href="#">Info@procab.uz</a>
+          <div class="footer-contacts">
+            <div class="footer-contact-item">
+              <div class="footer-title">Отдел экспорта</div>
+              <a href="#">+998771111111</a>
+              <a href="#">Info@procab.uz</a>
+            </div>
+            <div class="footer-contact-item">
+              <div class="footer-title">Отдел инженерии</div>
+              <a href="#">+998771111111</a>
+              <a href="#">Info@procab.uz</a>
+            </div>
           </div>
         </div>
       </div>
