@@ -386,8 +386,6 @@ var swiper2 = new Swiper(".partner-slider", {
   observeParents: true,
   observeSlideChildren: true,
   watchSlidesProgress: true,
-  slidesPerView: 1,
-  spaceBetween: 0,
   navigation: {
     nextEl: ".partners-company-section .swiper-button-next",
     prevEl: ".partners-company-section .swiper-button-prev",
