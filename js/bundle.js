@@ -437,6 +437,42 @@ var swiper4 = new Swiper(".gallery-slider-main", {
   },
 });
 
+function handleVideoPlayback(swiper) {
+  const slides = swiper.slides;
+  const isMobile = window.innerWidth <= 600;
+
+  slides.forEach(slide => {
+    const videos = slide.querySelectorAll('video');
+    videos.forEach(video => {
+      video.pause();
+      video.currentTime = 0;
+      if (isMobile) {
+        video.controls = false;
+        video.removeAttribute('controls');
+      } else {
+        video.controls = true;
+        video.setAttribute('controls', 'controls');
+      }
+    });
+  });
+
+  const activeSlide = swiper.slides[swiper.activeIndex];
+
+  if (activeSlide && !isMobile) {
+    const activeVideos = activeSlide.querySelectorAll('video');
+    activeVideos.forEach(video => {
+      video.play().catch(e => console.log('Video play error:', e));
+    });
+  }
+}
+
+// Добавляем обработчик изменения размера окна
+window.addEventListener('resize', function() {
+  if (swiper5) {
+    handleVideoPlayback(swiper5);
+  }
+});
+
 var swiper5 = new Swiper(".banner-slider", {
   spaceBetween: 0,
   slidesPerView: 1,
@@ -474,26 +510,7 @@ var swiper5 = new Swiper(".banner-slider", {
   }
 });
 
-function handleVideoPlayback(swiper) {
-  const slides = swiper.slides;
-
-  slides.forEach(slide => {
-    const videos = slide.querySelectorAll('video');
-    videos.forEach(video => {
-      video.pause();
-      video.currentTime = 0;
-    });
-  });
-
-  const activeSlide = swiper.slides[swiper.activeIndex];
-
-  if (activeSlide) {
-    const activeVideos = activeSlide.querySelectorAll('video');
-    activeVideos.forEach(video => {
-      video.play().catch(e => console.log('Video play error:', e));
-    });
-  }
-}
+handleVideoPlayback(swiper5);
 
 // Интерактивная карта
 document.addEventListener('DOMContentLoaded', () => {
@@ -555,4 +572,49 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   hideAllSecondaryElements();
+});
+
+
+function handleExternalVideo() {
+  const isMobile = window.innerWidth <= 600;
+  const externalVideos = document.querySelectorAll('.full-width-video-section video');
+
+  externalVideos.forEach(video => {
+    if (isMobile) {
+      video.pause();
+      video.removeAttribute('autoplay');
+      video.controls = false;
+      video.muted = true;
+    } else {
+      video.setAttribute('autoplay', 'autoplay');
+      video.muted = true;
+      video.controls = true;
+      video.play().catch(e => console.log('External video play error:', e));
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const playButtons = document.querySelectorAll('.video-play-btn');
+
+  playButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const videoSection = this.closest('.full-width-video-section');
+      const video = videoSection.querySelector('video');
+
+      if (video.paused) {
+        video.play().catch(e => console.log('Play error:', e));
+        this.style.display = 'none';
+      } else {
+        video.pause();
+        this.style.display = 'block';
+      }
+    });
+  });
+
+  handleExternalVideo();
+});
+
+window.addEventListener('resize', function() {
+  handleExternalVideo();
 });
