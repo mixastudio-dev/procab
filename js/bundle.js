@@ -580,34 +580,74 @@ function handleExternalVideo() {
   const externalVideos = document.querySelectorAll('.full-width-video-section video');
 
   externalVideos.forEach(video => {
+    console.log('Video element found:', video);
+    console.log('Is mobile:', isMobile);
+
     if (isMobile) {
       video.pause();
       video.removeAttribute('autoplay');
-      video.controls = false;
+      video.controls = true;
       video.muted = true;
+      video.style.display = 'block';
+      video.style.width = '100%';
+      video.style.height = 'auto';
+
+      video.load();
+
+      const btn = video.closest('.full-width-video-section').querySelector('.video-play-btn');
+      if (btn) {
+        btn.style.display = 'block';
+      }
     } else {
       video.setAttribute('autoplay', 'autoplay');
       video.muted = true;
       video.controls = true;
+      video.style.display = 'block';
       video.play().catch(e => console.log('External video play error:', e));
+
+      const btn = video.closest('.full-width-video-section').querySelector('.video-play-btn');
+      if (btn) {
+        btn.style.display = 'none';
+      }
     }
   });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Проверяем, есть ли видео на странице
+  const videos = document.querySelectorAll('.full-width-video-section video');
+  console.log('Total videos found:', videos.length);
+
   const playButtons = document.querySelectorAll('.video-play-btn');
+  console.log('Total buttons found:', playButtons.length);
 
   playButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Button clicked');
+
       const videoSection = this.closest('.full-width-video-section');
       const video = videoSection.querySelector('video');
 
-      if (video.paused) {
-        video.play().catch(e => console.log('Play error:', e));
-        this.style.display = 'none';
-      } else {
-        video.pause();
-        this.style.display = 'block';
+      console.log('Video found:', video);
+
+      if (video) {
+        if (video.paused) {
+          console.log('Playing video');
+          video.play().then(() => {
+            console.log('Video playing');
+            this.style.display = 'none';
+          }).catch(e => {
+            console.log('Play error:', e);
+            // Если видео не играет, пробуем принудительно
+            video.muted = true;
+            video.play().catch(err => console.log('Retry error:', err));
+          });
+        } else {
+          console.log('Pausing video');
+          video.pause();
+          this.style.display = 'block';
+        }
       }
     });
   });
